@@ -50,7 +50,7 @@ func queryHandler(c *gin.Context) {
 type BookInput struct {
 	Title    string
 	Price    int
-	Subtitle string `json:sub_title`
+	Subtitle string `json:"sub_title"`
 }
 
 func postBooksHandler(c *gin.Context) {
