@@ -1,7 +1,6 @@
 package main
 
 import (
-	"encoding/json"
 	"fmt"
 	"net/http"
 
@@ -51,7 +50,7 @@ func queryHandler(c *gin.Context) {
 
 type BookInput struct {
 	Title string `json:"title" binding:"required"`
-	Price json.Number `json:"price" binding:"required,number"`
+	Price int `json:"price" binding:"required,number"`
 }
 
 func postBooksHandler(c *gin.Context) {
@@ -61,13 +60,15 @@ func postBooksHandler(c *gin.Context) {
 
 	if err != nil {
 		
+		errorMessages := []string{}
 		for _, e := range err.(validator.ValidationErrors){
 			errorMessage := fmt.Sprintf("Error on field: %s, condition: %s", e.Field(), e.ActualTag())
-			c.JSON(http.StatusBadRequest, errorMessage)
-			return
+			errorMessages = append(errorMessages, errorMessage)
 		}
-		
-	
+		c.JSON(http.StatusBadRequest, gin.H{
+			"error" : errorMessages,
+		})
+		return
 	}
 
 	c.JSON(http.StatusOK, gin.H{
