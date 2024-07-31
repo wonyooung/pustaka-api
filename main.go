@@ -32,14 +32,18 @@ func main() {
    // if err != nil {
    // 	fmt.Println("Db connection error")
    // }
-   	var book book.Book
-   	err = db.First(&book).Error
+   	var books []book.Book
+   	err = db.Where("rating = ?", 5).Find(&books).Error
     if err != nil {
     	fmt.Println("finding book record")
     }
     
-    fmt.Println("judul : ", book.Title)
-    fmt.Println("data buku : ", book)
+    for _, b := range books {
+    fmt.Println("judul : ", b.Title)
+    fmt.Println("data buku : ", b)
+    }
+    
+    
     
     
    
