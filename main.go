@@ -20,7 +20,7 @@ func main() {
   
    	db.AutoMigrate(&book.Book{}) // auto migrate 
    // CRUD
-   // book := book.Book{}
+   // book := book.Book{} create
    // book.Title = "Atomic habits"
    // book.Price = 12000
    // book.Discount = 20
@@ -37,13 +37,17 @@ func main() {
     if err != nil {
     	fmt.Println("finding book record")
     }
-    fmt.Println(book.Title)
-    book.Title = "Man tiger (revisi)"
-    err = db.Save(&book).Error
-    if err != nil {
-    	fmt.Println("error updating book", book.ID)
-    }
+    // book.Title = "Man tiger (revisi)" update
+    // err = db.Save(&book).Error
+    // if err != nil {
+    // 	fmt.Println("error updating book", book.ID)
+    // }
+    // delete
     
+    err = db.Delete(&book).Error
+    if err != nil {
+    	fmt.Println("error saat men delete buku")
+    }
 
    
 	router := gin.Default()
@@ -56,7 +60,7 @@ func main() {
 	v1.GET("/query", handler.QueryHandler)
 	v1.POST("/books", handler.PostBooksHandler)
 	
-	router.Run(":111")
+	router.Run(":01")
 }
 
 
