@@ -4,7 +4,7 @@ import (
 	"log"
 	"pustaka-api/book"
 	"pustaka-api/handler"
-
+	"fmt"
 	"github.com/gin-gonic/gin"
 	"gorm.io/driver/mysql"
 	"gorm.io/gorm"
@@ -18,8 +18,30 @@ func main() {
    		log.Fatal("db connection error")
    }
   
-   db.AutoMigrate(&book.Book{}) // auto migrate 
+   	db.AutoMigrate(&book.Book{}) // auto migrate 
+   // CRUD
+   // book := book.Book{}
+   // book.Title = "Atomic habits"
+   // book.Price = 12000
+   // book.Discount = 20
+   // book.Rating = 5
+   // book.Description = "Ini adalah buku yang sangan laris"
    
+   // err = db.Create(&book).Error
+   
+   // if err != nil {
+   // 	fmt.Println("Db connection error")
+   // }
+   	var book book.Book
+   	err = db.First(&book).Error
+    if err != nil {
+    	fmt.Println("finding book record")
+    }
+    
+    fmt.Println("judul : ", book.Title)
+    fmt.Println("data buku : ", book)
+    
+    
    
 	router := gin.Default()
 	
