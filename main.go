@@ -32,20 +32,19 @@ func main() {
    // if err != nil {
    // 	fmt.Println("Db connection error")
    // }
-   	var books []book.Book
-   	err = db.Where("rating = ?", 5).Find(&books).Error
+   	var book book.Book
+   	err = db.Where("id = ?", 1).First(&book).Error
     if err != nil {
     	fmt.Println("finding book record")
     }
-    
-    for _, b := range books {
-    fmt.Println("judul : ", b.Title)
-    fmt.Println("data buku : ", b)
+    fmt.Println(book.Title)
+    book.Title = "Man tiger (revisi)"
+    err = db.Save(&book).Error
+    if err != nil {
+    	fmt.Println("error updating book", book.ID)
     }
     
-    
-    
-    
+
    
 	router := gin.Default()
 	
