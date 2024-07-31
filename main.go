@@ -44,10 +44,10 @@ func main() {
     // }
     // delete
     
-    err = db.Delete(&book).Error
-    if err != nil {
-    	fmt.Println("error saat men delete buku")
-    }
+    // err = db.Delete(&book).Error
+    // if err != nil {
+    // 	fmt.Println("error saat men delete buku")
+    // }
 
    
 	router := gin.Default()
