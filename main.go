@@ -22,22 +22,17 @@ func main() {
   
     bookRepository := book.NewRepository(db)
     bookService := book.NewService(bookRepository)
-    bookRequest := book.BookRequest{
-    	Title: "manusia harimau",
-     	Price: 90909,
-    }
-    
-    bookService.Create(bookRequest)
+    bookhandler := handler.NewBookHandler(bookService)
     
 	router := gin.Default()
 	
 	v1 := router.Group("/v1")
 	
-	v1.GET("/", handler.RootHandler)
-	v1.GET("/hello", handler.HelloHandler)
-	v1.GET("/books/:id/:title", handler.BooksHandler)
-	v1.GET("/query", handler.QueryHandler)
-	v1.POST("/books", handler.PostBooksHandler)
+	v1.GET("/", bookhandler.RootHandler)
+	v1.GET("/hello", bookhandler.HelloHandler)
+	v1.GET("/books/:id/:title", bookhandler.BooksHandler)
+	v1.GET("/query", bookhandler.QueryHandler)
+	v1.POST("/books", bookhandler.PostBooksHandler)
 	
 	router.Run(":01")
 }
