@@ -21,13 +21,28 @@ func main() {
   
    	db.AutoMigrate(&book.Book{}) // auto migrate 
   
+    
     bookRepository := book.NewRepository(db)
+    // create 
+    // var book book.Book
+    // book.Title = "manusia harimau"
+    // book.Price = 4000
+    // book.Rating = 4
+    // book.Discount = 20
+    // book.Description = "manusia yang sangat berbahaya"
     
-    books, err := bookRepository.FindAll()
+    // add, err := bookRepository.Create(book)
     
-    for _, book := range books {
-    	fmt.Println("title", book.Title)
-    }
+    // if err != nil {
+    // 	fmt.Println("eror")
+    // }
+    
+    // fmt.Println(add.Title, "berhasil ditambahkan")
+    
+    // find
+    book, err := bookRepository.FindByID(2)
+    
+    fmt.Println("judul buku : ",book.Title)
     
 	router := gin.Default()
 	
