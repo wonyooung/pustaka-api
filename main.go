@@ -1,7 +1,6 @@
 package main
 
 import (
-	"fmt"
 	"log"
 	"pustaka-api/book"
 	"pustaka-api/handler"
@@ -13,11 +12,11 @@ import (
 
 func main() {
 	dsn := "root:@tcp(127.0.0.1:3306)/pustaka-api?charset=utf8mb4&parseTime=True&loc=Local"
-  	db, err := gorm.Open(mysql.Open(dsn), &gorm.Config{})
+	db, err := gorm.Open(mysql.Open(dsn), &gorm.Config{})
    
-   if err != nil {
+	if err != nil {
    		log.Fatal("db connection error")
-   }
+	}
   
    	db.AutoMigrate(&book.Book{}) // auto migrate 
   
@@ -27,35 +26,8 @@ func main() {
     	Title: "manusia harimau",
      	Price: 90909,
     }
+    
     bookService.Create(bookRequest)
-    books, err := bookService.FindAll()
-    i := 0
-    for _, book := range books {
-    	fmt.Println("title", book)
-     	i++
-    }
-    fmt.Println("bnyak buku adalah : ", i)
-    
-    // create 
-    // var book book.Book
-    // book.Title = "manusia harimau"
-    // book.Price = 4000
-    // book.Rating = 4
-    // book.Discount = 20
-    // book.Description = "manusia yang sangat berbahaya"
-    
-    // add, err := bookRepository.Create(book)
-    
-    // if err != nil {
-    // 	fmt.Println("eror")
-    // }
-    
-    // fmt.Println(add.Title, "berhasil ditambahkan")
-    
-    // find
-    // book, err := bookRepository.FindByID(2)
-    
-    // fmt.Println("judul buku : ",book.Title)
     
 	router := gin.Default()
 	

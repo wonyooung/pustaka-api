@@ -55,7 +55,8 @@ func PostBooksHandler(c *gin.Context) {
 		})
 		return
 	}
-
+	
+	
 	c.JSON(http.StatusOK, gin.H{
 		"title": bookInput.Title,
 		"price": bookInput.Price,
